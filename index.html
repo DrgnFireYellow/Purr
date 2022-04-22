@@ -1,0 +1,42 @@
+<script src="https://unpkg.com/vue@3"></script>
+
+<div id="app">
+	<h1>{{ name }}</h1>
+	hungry: {{ hungry }}
+	<br>
+	<input v-model="name" placeholder="Name...">
+	<br>
+	<span class="cat-icon">{{ icon }}</span>
+	<span class="cat-icon">
+	<br>
+	<button @click="feed" class="button-icon">&#127858;</button>
+</div>
+
+<style>
+	.cat-icon {
+		font-size: 300px;	
+	}
+	.button-icon {
+	    font-size: 100px;
+	}
+</style>
+
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        name: 'Kitty',
+	happy: false,
+	hungry: true,
+	icon: '&#128049;'
+      }
+    },
+    methods: {
+	feed() {
+	    this.hungry = false
+	    this.icon = '&#128570;'
+	    setTimeout(() => { this.icon =  '&#128049;'; }, 10000)
+	}
+    }
+  }).mount('#app')
+</script>
