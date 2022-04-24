@@ -1,42 +1,82 @@
-<script src="https://unpkg.com/vue@3"></script>
+<!DOCTYPE html>
 
-<div id="app">
-	<h1>{{ name }}</h1>
-	hungry: {{ hungry }}
-	<br>
-	<input v-model="name" placeholder="Name...">
-	<br>
-	<span class="cat-icon">{{ icon }}</span>
-	<span class="cat-icon">
-	<br>
-	<button @click="feed" class="button-icon">&#127858;</button>
-</div>
+<head>
+	<script src="https://unpkg.com/vue@3"></script>
+	<meta charset="UTF-8">
+</head>
 
-<style>
-	.cat-icon {
-		font-size: 300px;	
-	}
-	.button-icon {
-	    font-size: 100px;
-	}
-</style>
+<body>
+	<div id="app">
+		<h1>{{ name }}</h1>
+		<!--hungry: {{ hungry }}
+		happy: {{ happy }}-->
+		<br>
+		<input v-model="name" placeholder="Name...">
+		<br>
+		<span class="cat-icon">{{ icon }}</span>
+		<br>
+		<img v-if="hungry" src="foodbubble.svg">
+		<img v-if="!happy&&!hungry" src="petbubble.svg">
+		<br>
+		<button @click="feed" class="button-icon">&#127858;</button>
+		<button @click="pet" class="button-icon">🫳</button>
+	</div>
 
-<script>
-  Vue.createApp({
-    data() {
-      return {
-        name: 'Kitty',
-	happy: false,
-	hungry: true,
-	icon: '&#128049;'
-      }
-    },
-    methods: {
-	feed() {
-	    this.hungry = false
-	    this.icon = '&#128570;'
-	    setTimeout(() => { this.icon =  '&#128049;'; }, 10000)
-	}
-    }
-  }).mount('#app')
-</script>
+	<style>
+		.cat-icon {
+			font-size: 300px;
+		}
+
+		.button-icon {
+			font-size: 100px;
+		}
+
+		body {
+			background-color: greenyellow;
+			text-align: center;
+			font-family: sans-serif;
+		}
+
+		input {
+			font-size: large;
+			background-color: rgba(255, 255, 255, 0);
+			border-color: rgb(255, 255, 255);
+			border-radius: 30%;
+		}
+
+		button {
+			background: transparent;
+			border-width: 0;
+		}
+	</style>
+
+	<script>
+		Vue.createApp({
+			mounted() {
+				setInterval(() => { this.hungry = true }, 30000)
+				setInterval(() => { this.happy = false }, 10000)
+			},
+			data() {
+				return {
+					name: 'Kitty',
+					happy: false,
+					hungry: true,
+					icon: '🐱'
+				}
+			},
+			methods: {
+				feed() {
+					// console.log(this.icon)
+					this.hungry = false
+					this.icon = '😺'
+					setTimeout(() => { this.icon = '🐱' }, 1000)
+				},
+				pet() {
+					this.happy = true
+					this.icon = '😸'
+					setTimeout(() => { this.icon = '🐱' }, 2000)
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
